@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>User Dashboard | PetCare</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins',sans-serif;
+}
+
+body{
+  background:#f4f6fb;
+}
+
+/* ===== HEADER ===== */
+header{
+  background:#0b5ed7;
+  color:#fff;
+  padding:15px 50px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+header h2{
+  color:#ffd43b;
+}
+
+nav a{
+  color:#fff;
+  margin-left:20px;
+  text-decoration:none;
+  font-weight:500;
+}
+
+nav a:hover{
+  color:#ffd43b;
+}
+
+/* ===== DASHBOARD ===== */
+.dashboard{
+  padding:60px;
+}
+
+.dashboard h1{
+  margin-bottom:30px;
+}
+
+/* ===== STATS ===== */
+.stats{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:25px;
+  margin-bottom:40px;
+}
+
+.stat-card{
+  background:#fff;
+  padding:25px;
+  border-radius:18px;
+  box-shadow:0 15px 30px rgba(0,0,0,.12);
+  display:flex;
+  align-items:center;
+  gap:20px;
+}
+
+.stat-card i{
+  font-size:35px;
+  color:#ff6f61;
+}
+
+/* ===== REQUESTS ===== */
+.requests{
+  background:#fff;
+  padding:30px;
+  border-radius:20px;
+  box-shadow:0 15px 40px rgba(0,0,0,.15);
+}
+
+.request-card{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:15px;
+  border-bottom:1px solid #eee;
+}
+
+.request-card:last-child{
+  border:none;
+}
+
+.request-info{
+  display:flex;
+  align-items:center;
+  gap:15px;
+}
+
+.request-info img{
+  width:80px;
+  height:80px;
+  object-fit:cover;
+  border-radius:12px;
+}
+
+.status{
+  padding:6px 14px;
+  border-radius:20px;
+  font-size:14px;
+  color:#fff;
+}
+
+.pending{ background:#f39c12; }
+.approved{ background:#2ecc71; }
+.rejected{ background:#e74c3c; }
+
+.cancel{
+  background:#e74c3c;
+  color:#fff;
+  border:none;
+  padding:8px 14px;
+  border-radius:8px;
+  cursor:pointer;
+}
+
+/* ===== EMPTY ===== */
+.empty{
+  text-align:center;
+  padding:40px;
+  color:#777;
+}
+
+/* ===== BUTTON ===== */
+.btn{
+  display:inline-block;
+  margin-top:25px;
+  padding:12px 30px;
+  background:#ffd43b;
+  color:#000;
+  border-radius:30px;
+  text-decoration:none;
+  transition:.3s;
+}
+
+.btn:hover{
+  transform:scale(1.1);
+}
+
+/* ===== FOOTER ===== */
+footer{
+  background:#000;
+  color:#fff;
+  text-align:center;
+  padding:15px;
+  margin-top:60px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h2>🐾 PetCare</h2>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="pets.html">Pets</a>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="login.html">Login</a>
+  </nav>
+</header>
+
+<div class="dashboard">
+  <h1>User Dashboard</h1>
+
+  <!-- STATS -->
+  <div class="stats">
+    <div class="stat-card">
+      <i class="fa fa-heart"></i>
+      <div>
+        <p>Total Requests</p>
+        <h2 id="totalReq">0</h2>
+      </div>
+    </div>
+    <div class="stat-card">
+      <i class="fa fa-check-circle"></i>
+      <div>
+        <p>Approved</p>
+        <h2 id="approvedReq">0</h2>
+      </div>
+    </div>
+    <div class="stat-card">
+      <i class="fa fa-clock"></i>
+      <div>
+        <p>Pending</p>
+        <h2 id="pendingReq">0</h2>
+      </div>
+    </div>
+  </div>
+
+  <!-- REQUEST LIST -->
+  <div class="requests">
+    <h2>Your Adoption Requests</h2>
+    <div id="requestList"></div>
+  </div>
+
+  <a href="pets.html" class="btn">Adopt More Pets</a>
+</div>
+
+<footer>© 2026 PetCare</footer>
+
+<script>
+const requests = JSON.parse(localStorage.getItem("adoptionRequests")) || [];
+let html = "<h3>My Adoption Requests</h3>";
+
+if (requests.length === 0) {
+  html += "<p>No requests yet.</p>";
+} else {
+  requests.forEach(req => {
+    html += `
+      <div class="card">
+        <h3>${req.petName}</h3>
+        <p>Status: <b>${req.status}</b></p>
+      </div>
+    `;
+  });
+}
+
+document.querySelector(".section").innerHTML += html;
+</script>
+
+
+</body>
+</html>

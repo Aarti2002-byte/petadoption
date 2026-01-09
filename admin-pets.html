@@ -1,0 +1,61 @@
+<h2>Manage Pets</h2>
+
+<input id="petName" placeholder="Pet Name">
+<input id="petImg" placeholder="Image URL">
+<button onclick="addPet()">Add Pet</button>
+
+<div id="petList"></div>
+
+<script>
+let pets = JSON.parse(localStorage.getItem("pets")) || [];
+
+pets.push({
+  name: petName,
+  img: petImage,
+  type: petType,
+  age: petAge
+});
+
+localStorage.setItem("pets", JSON.stringify(pets));
+
+
+function displayPets(){
+  petList.innerHTML="";
+  pets.forEach((p,i)=>{
+    petList.innerHTML+=`
+      <div>
+        <img src="${p.img}" width="100">
+        <b>${p.name}</b>
+        <button onclick="deletePet(${i})">Delete</button>
+      </div>`;
+  });
+}
+
+function deletePet(i){
+  pets.splice(i,1);
+  localStorage.setItem("pets", JSON.stringify(pets));
+  displayPets();
+}
+
+displayPets();
+
+function displayPets(){
+  petList.innerHTML="";
+  pets.forEach((p,i)=>{
+    petList.innerHTML+=`
+      <div>
+        <img src="${p.img}" width="100">
+        <b>${p.name}</b>
+        <button onclick="deletePet(${i})">Delete</button>
+      </div>`;
+  });
+}
+
+function deletePet(i){
+  pets.splice(i,1);
+  localStorage.setItem("pets", JSON.stringify(pets));
+  displayPets();
+}
+
+displayPets();
+</script>

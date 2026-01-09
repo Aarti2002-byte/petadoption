@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Pet Details</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="app.js"></script>
+    <style>
+      /* ===== PET DETAILS GALLERY ===== */
+      .pet-details {
+        max-width: 1000px;
+        margin: 120px auto;
+        background: #fff;
+        padding: 40px;
+        border-radius: 20px;
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+      }
+
+      .main-img {
+        width: 100%;
+        height: 350px;
+        border-radius: 15px;
+        object-fit: cover;
+      }
+
+      .thumb-box {
+        display: flex;
+        gap: 15px;
+        margin-top: 15px;
+      }
+
+      .thumb-box img {
+        width: 80px;
+        height: 80px;
+        border-radius: 10px;
+        object-fit: cover;
+        cursor: pointer;
+        transition: 0.3s;
+        border: 2px solid transparent;
+      }
+
+      .thumb-box img:hover {
+        transform: scale(1.1);
+        border-color: #ffd43b;
+      }
+
+      .pet-info h2 {
+        margin-bottom: 10px;
+      }
+
+      .pet-info p {
+        margin: 8px 0;
+        color: #555;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- NAVBAR -->
+    <header>
+      <h2>🐾 PetCare</h2>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="pets.html">Pets</a>
+        <a href="dashboard.html">Dashboard</a>
+      </nav>
+    </header>
+
+    <!-- PET DETAILS -->
+    <div class="pet-details">
+      <!-- IMAGE GALLERY -->
+      <div>
+        <img
+          id="mainImage"
+          src="https://rukminim2.flixcart.com/image/480/640/xif0q/poster/c/1/d/medium-pefkt13840-cute-dogs-cute-puppies-pomeranian-fulffy-dog-original-imagg7zh7zn2y8y5.jpeg?q=90 "
+          class="main-img"
+        />
+
+        <div class="thumb-box">
+          <img
+            src="images/dog1.jpghttps://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkPfW0vnCameQpJMNRcWjS7JV4Fer2v08Onw&s"
+          />
+          <img
+            src="images/dog2.jpghttps://www.shutterstock.com/image-photo/beautiful-golden-retriever-cute-puppy-600nw-2526542701.jpg"
+          />
+          <img
+            src="images/cat1.jpghttps://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdloUq_Jtk3YDwEbYiNE7B8y477FMG4otOTA&s"
+          />
+        </div>
+      </div>
+
+      <!-- PET INFO -->
+      <div class="pet-info">
+        <h2>Buddy</h2>
+        <p><b>Age:</b> 2 Years</p>
+        <p><b>Breed:</b> Golden Retriever</p>
+        <p><b>Gender:</b> Male</p>
+        <p><b>Vaccination:</b> Fully Vaccinated</p>
+        <p>
+          Buddy is friendly, energetic, and loves playing with kids. He is
+          looking for a loving forever home.
+        </p>
+
+        <button class="btn" onclick="adoptPet('Buddy')">Adopt Me</button>
+      </div>
+    </div>
+
+    <!-- JS FOR GALLERY -->
+    <script>
+      function changeImage(img) {
+        document.getElementById("mainImage").src = img.src;
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Adopt Pet</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body class="auth-page">
+
+<header>
+  <h2>🐾 PetCare</h2>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="pets.html">Pets</a>
+    <a href="dashboard.html">Dashboard</a>
+  </nav>
+</header>
+
+<div class="form-box">
+  <h2>Adoption Request</h2>
+
+  <!-- PET NAME AUTO-FILL -->
+  <input id="petName" readonly>
+
+  <!-- USER INFO -->
+  <input id="userName" placeholder="Your Full Name" required>
+  <input id="email" placeholder="Your Email" required>
+
+  <input id="address" placeholder="Your Address">
+  <textarea id="reason" placeholder="Why do you want to adopt this pet?"></textarea>
+
+  <button class="btn" onclick="submitAdoption()">Submit Request</button>
+</div>
+
+<script>
+/* ===== AUTO LOAD SELECTED PET ===== */
+document.getElementById("petName").value =
+  localStorage.getItem("selectedPet") || "Unknown Pet";
+
+/* ===== SUBMIT ADOPTION ===== */
+function submitAdoption() {
+  const petName = document.getElementById("petName").value;
+  const userName = document.getElementById("userName").value;
+  const email = document.getElementById("email").value;
+  const address = document.getElementById("address").value;
+  const reason = document.getElementById("reason").value;
+
+  if (!userName || !email) {
+    alert("Please fill required fields");
+    return;
+  }
+
+  const request = {
+    petName: petName,
+    userName: userName,
+    email: email,
+    address: address,
+    reason: reason,
+    status: "Pending"
+  };
+
+  let requests =
+    JSON.parse(localStorage.getItem("adoptionRequests")) || [];
+
+  requests.push(request);
+  localStorage.setItem("adoptionRequests", JSON.stringify(requests));
+
+  alert("✅ Adoption request submitted! Waiting for admin approval.");
+
+  // optional redirect
+  window.location.href = "index.html";
+}
+</script>
+
+</body>
+</html>

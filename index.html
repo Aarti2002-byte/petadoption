@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Pet Adoption</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body> 
+    <header>
+      <h2>🐾 PetCare</h2>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="pets.html">Pets</a>
+        <a href="login.html">Login</a>
+        <a href="register.html">Register</a>
+        <a href="admin-login.html">Admin</a>
+        <a href="#contact">contact</a>
+        <a href="#about">About</a>
+      </nav>
+    </header>
+  
+
+ 
+  
+    <section class="hero">
+      <div class="hero-box">
+        <h1>Find Your Forever Friend</h1>
+        <p>Adopt a pet and give them a loving home</p>
+        <a href="pets.html" class="btn">Adopt Now</a>
+        <a href="pets.html" class="btn">View Pets</a>
+      </div>
+    </section>
+</section>
+    
+    <section id="about" class="about">
+  <h2>About Us</h2>
+  <p>
+    We are a pet adoption platform dedicated to giving homeless animals
+    a second chance at life. Our mission is to connect loving families
+    with pets in need of care and compassion.
+  </p>
+
+  <div class="about-cards">
+    <div class="about-card">
+      <i class="fa-solid fa-heart"></i>
+      <h3>Our Mission</h3>
+      <p>Saving lives through responsible adoption</p>
+    </div>
+
+    <div class="about-card">
+      <i class="fa-solid fa-paw"></i>
+      <h3>Our Pets</h3>
+      <p>Healthy, vaccinated, and ready for adoption</p>
+    </div>
+
+    <div class="about-card">
+      <i class="fa-solid fa-house"></i>
+      <h3>Our Promise</h3>
+      <p>Lifelong support for adopters</p>
+    </div>
+  </div>
+  </section>
+
+ <section class="section">
+  <h2>Featured Pets</h2>
+
+  <div class="cards" id="petContainer">
+
+    <!-- STATIC PETS -->
+    <div class="card">
+      <img src="dog1.jfif" />
+      <h3>Buddy</h3>
+      <p>Golden Retriever • 2 Years</p>
+      <button class="btn" onclick="openAdoptionForm('Buddy')">Click to Adopt</button>
+    </div>
+
+    <div class="card">
+      <img src="cat.jpg" />
+      <h3>Luna</h3>
+      <p>Persian Cat • 1 Year</p>
+      <button class="btn" onclick="openAdoptionForm('Luna')">Click to Adopt</button>
+    </div>
+
+    <div class="card">
+      <img src="dog 2.jpg" />
+      <h3>Max</h3>
+      <p>Labrador • 3 Years</p>
+      <button class="btn" onclick="openAdoptionForm('Max')">Click to Adopt</button>
+    </div>
+
+  </div>
+</section>
+
+  
+
+    
+  <section id="contact" class="contact-pro">
+  <div class="contact-wrapper">
+
+    <div class="contact-left">
+      <h2>Get in Touch</h2>
+      <p>
+        Have questions about adoption, donations, or volunteering?
+        We’d love to hear from you.
+      </p>
+
+      <div class="contact-details">
+        <div>
+          <i class="fa-solid fa-location-dot"></i>
+          <span>Ambala, Haryana, India</span>
+        </div>
+        <div>
+          <i class="fa-solid fa-phone"></i>
+          <span>+91 98765 43210</span>
+        </div>
+        <div>
+          <i class="fa-solid fa-envelope"></i>
+          <span>support@petcare.com</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="contact-right">
+      <form>
+        <div class="input-group">
+          <input type="text" required>
+          <label>Full Name</label>
+        </div>
+
+        <div class="input-group">
+          <input type="email" required>
+          <label>Email Address</label>
+        </div>
+
+        <div class="input-group">
+          <textarea required></textarea>
+          <label>Your Message</label>
+        </div>
+
+        <button class="btn-pro">Send Message</button>
+      </form>
+    </div>
+
+  </div>
+</section>
+
+<footer class="footer-pro">
+
+  <div class="footer-top">
+    <div class="footer-brand">
+      <h2>🐾 PetCare</h2>
+      <p>
+        Connecting loving families with pets in need.
+        Adopt. Donate. Save lives.
+      </p>
+    </div>
+
+    <div class="footer-links">
+      <h4>Explore</h4>
+      <a href="index.html">Home</a>
+      <a href="pets.html">Adopt Pets</a>
+      <a href="#about">About Us</a>
+      <a href="#contact">Contact</a>
+    </div>
+
+    <div class="footer-links">
+      <h4>Support</h4>
+      <a href="#">Donate</a>
+      <a href="#">Volunteer</a>
+      <a href="#">FAQs</a>
+      <a href="#">Privacy Policy</a>
+    </div>
+
+    <div class="footer-social">
+      <h4>Follow Us</h4>
+      <div class="icons">
+        <i class="fa-brands fa-facebook-f"></i>
+        <i class="fa-brands fa-instagram"></i>
+        <i class="fa-brands fa-x-twitter"></i>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    © 2026 PetCare. All Rights Reserved.
+  </div>
+
+</footer>
+
+
+    <!-- ================= ADOPTION FORM POPUP ================= -->
+<div id="adoptionModal" class="adoption-modal">
+
+  <div class="adoption-box">
+    <span class="close-btn" onclick="closeAdoptionForm()">&times;</span>
+
+    <h2>Pet Adoption Form</h2>
+
+    <form>
+      <input type="text" id="adoptPetName" readonly>
+
+      <input type="text" placeholder="Your Full Name" required>
+      <input type="email" placeholder="Email Address" required>
+      <input type="tel" placeholder="Phone Number" required>
+
+      <textarea placeholder="Why do you want to adopt this pet?" required></textarea>
+
+     <button type="submit" class="btn" onclick="msg()">Submit Request</button>
+    </form>
+  </div>
+
+</div>
+<script>
+  function msg(){
+    alert("your message has been sent successfully, we'll contact you soon!!")
+  }
+function openAdoptionForm(petName){
+  document.getElementById("adoptionModal").style.display = "flex";
+  document.getElementById("adoptPetName").value = "Pet Name: " + petName;
+}
+
+function closeAdoptionForm(){
+  document.getElementById("adoptionModal").style.display = "none";
+}
+</script>
+<script>
+  let pets = JSON.parse(localStorage.getItem("pets")) || [];
+  let container = document.getElementById("petContainer");
+
+  pets.forEach(pet => {
+    container.innerHTML += `
+      <div class="card">
+        <img src="${pet.img}" />
+        <h3>${pet.name}</h3>
+        <p>${pet.type || "Lovely Pet"} • ${pet.age || "1 Year"}</p>
+        <button class="btn" onclick="openAdoptionForm('${pet.name}')">
+          Click to Adopt
+        </button>
+      </div>
+    `;
+  });
+</script>
+
+</script>
+<script>
+/* ===== INITIAL PET DATA (RUNS ONLY ONCE) ===== */
+if (!localStorage.getItem("pets")) {
+  const defaultPets = [
+    {
+      name: "Buddy",
+      img: "images/dog1.jfif"
+    },
+    {
+      name: "Luna",
+      img: "images/cat.jpg"
+    },
+    {
+      name: "Max",
+      img: "images/dog 2.jpg"
+    }
+  ];
+
+  localStorage.setItem("pets", JSON.stringify(defaultPets));
+}
+</script>
+
+
+  </body>
+</html>

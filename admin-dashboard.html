@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Admin Dashboard | PetCare</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+/* ===== RESET ===== */
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins',sans-serif;
+}
+body{background:#f4f6fb;}
+.admin-container{display:flex;min-height:100vh;}
+.sidebar{
+  width:260px;
+  background:linear-gradient(180deg,#ff6f61,#ff3b2f);
+  color:#fff;padding:30px 20px;
+}
+.sidebar h2{text-align:center;margin-bottom:40px;}
+.sidebar ul{list-style:none;}
+.sidebar li{
+  padding:14px 18px;margin-bottom:15px;
+  border-radius:12px;cursor:pointer;transition:.3s;
+}
+.sidebar li i{margin-right:10px;}
+.sidebar li:hover,.sidebar li.active{background:rgba(255,255,255,0.25);}
+.main{flex:1;padding:40px;}
+.topbar{
+  display:flex;justify-content:space-between;
+  align-items:center;margin-bottom:30px;
+}
+.topbar h1{font-size:28px;}
+.topbar button{
+  background:#ff3b2f;border:none;color:#fff;
+  padding:10px 18px;border-radius:8px;cursor:pointer;
+}
+.stats{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:25px;margin-bottom:40px;
+}
+.stat-card{
+  background:#fff;padding:25px;border-radius:18px;
+  box-shadow:0 15px 30px rgba(0,0,0,.1);
+  display:flex;align-items:center;gap:20px;
+}
+.stat-card i{font-size:32px;color:#ff6f61;}
+.stat-card h3{font-size:24px;}
+.section{display:none;}
+.section.active{display:block;}
+.form-box{
+  background:#fff;padding:30px;border-radius:20px;
+  box-shadow:0 20px 40px rgba(0,0,0,.15);
+  max-width:450px;
+}
+.form-box input{
+  width:100%;padding:12px;margin-bottom:15px;
+  border-radius:10px;border:1px solid #ccc;
+}
+.form-box button{
+  width:100%;padding:12px;background:#ff6f61;
+  border:none;color:#fff;border-radius:10px;cursor:pointer;
+}
+.pet-list{
+  margin-top:40px;display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:25px;
+}
+.pet-card{
+  background:#fff;border-radius:20px;
+  overflow:hidden;box-shadow:0 15px 30px rgba(0,0,0,.1);
+}
+.pet-card img{width:100%;height:180px;object-fit:cover;}
+.pet-card .info{padding:15px;text-align:center;}
+.pet-card button{
+  margin-top:10px;padding:8px 14px;border:none;
+  background:#d63031;color:#fff;border-radius:6px;
+  cursor:pointer;
+}
+table{
+  width:100%;background:#fff;border-collapse:collapse;
+  border-radius:20px;overflow:hidden;
+  box-shadow:0 15px 30px rgba(0,0,0,.1);
+}
+th,td{padding:15px;text-align:center;}
+th{background:#ff6f61;color:#fff;}
+tr:hover{background:#f9f9f9;}
+.approve{background:#00b894;border:none;padding:6px 12px;color:#fff;border-radius:6px;}
+.reject{background:#d63031;border:none;padding:6px 12px;color:#fff;border-radius:6px;}
+</style>
+</head>
+
+<body>
+
+<div class="admin-container">
+
+<aside class="sidebar">
+  <h2>🐾 Admin</h2>
+  <ul>
+    <li class="active" onclick="show('dashboard',this)"><i class="fa fa-chart-line"></i> Dashboard</li>
+    <li onclick="show('pets',this)"><i class="fa fa-dog"></i> Manage Pets</li>
+    <li onclick="show('requests',this)"><i class="fa fa-heart"></i> Requests</li>
+  </ul>
+</aside>
+
+<div class="main">
+
+<div class="topbar">
+  <h1>Admin Dashboard</h1>
+  <button onclick="logout()">Logout</button>
+</div>
+
+<!-- DASHBOARD -->
+<div id="dashboard" class="section active">
+  <div class="stats">
+    <div class="stat-card">
+      <i class="fa fa-paw"></i>
+      <div><p>Total Pets</p><h3 id="totalPets">0</h3></div>
+    </div>
+    <div class="stat-card">
+      <i class="fa fa-clipboard-list"></i>
+      <div><p>Requests</p><h3 id="totalRequests">0</h3></div>
+    </div>
+  </div>
+</div>
+
+<!-- PETS -->
+<div id="pets" class="section">
+  <div class="form-box">
+    <h3>Add Pet</h3><br>
+    <input id="petName" placeholder="Pet Name">
+    <input type="file" id="petImg">
+    <button onclick="addPet()">Add Pet</button>
+  </div>
+  <div class="pet-list" id="petList"></div>
+</div>
+
+<!-- REQUESTS -->
+<div id="requests" class="section">
+<table>
+<thead>
+<tr>
+  <th>Pet</th>
+  <th>User</th>
+  <th>Status</th>
+  <th>Action</th>
+</tr>
+</thead>
+<tbody id="reqTable"></tbody>
+</table>
+</div>
+
+</div>
+</div>
+
+<script>
+function show(id,el){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.sidebar li').forEach(l=>l.classList.remove('active'));
+  el.classList.add('active');
+}
+
+/* ===== DATA ===== */
+let pets = JSON.parse(localStorage.getItem("pets")) || [];
+let requests = JSON.parse(localStorage.getItem("adoptionRequests")) || [];
+
+/* ===== STATS ===== */
+document.getElementById("totalPets").innerText = pets.length;
+document.getElementById("totalRequests").innerText = requests.length;
+
+/* ===== ADD PET ===== */
+function addPet(){
+  let name = petName.value;
+  let file = petImg.files[0];
+  if(!name || !file) return alert("Fill all fields");
+  let reader = new FileReader();
+  reader.onload = ()=>{
+    pets.push({name,img:reader.result});
+    localStorage.setItem("pets",JSON.stringify(pets));
+    location.reload();
+  }
+  reader.readAsDataURL(file);
+}
+
+/* ===== PET LIST ===== */
+let petList = document.getElementById("petList");
+pets.forEach((p,i)=>{
+  petList.innerHTML += `
+  <div class="pet-card">
+    <img src="${p.img}">
+    <div class="info">
+      <h4>${p.name}</h4>
+      <button onclick="removePet(${i})">Delete</button>
+    </div>
+  </div>`;
+});
+function removePet(i){
+  pets.splice(i,1);
+  localStorage.setItem("pets",JSON.stringify(pets));
+  location.reload();
+}
+
+/* ===== REQUESTS (CONNECTED TO USER PANEL) ===== */
+let table = document.getElementById("reqTable");
+requests.forEach((r,i)=>{
+  table.innerHTML += `
+  <tr>
+    <td>${r.petName}</td>
+    <td>${r.userName}</td>
+    <td><b>${r.status}</b></td>
+    <td>
+      <button class="approve" onclick="updateReq(${i},'Approved')">Approve</button>
+      <button class="reject" onclick="updateReq(${i},'Rejected')">Reject</button>
+    </td>
+  </tr>`;
+});
+function updateReq(i,status){
+  requests[i].status = status;
+  localStorage.setItem("adoptionRequests",JSON.stringify(requests));
+  location.reload();
+}
+
+/* ===== LOGOUT ===== */
+function logout(){
+  window.location.href="admin-login.html";
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Pets</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="app.js"></script>
+  </head>
+
+  <body>
+
+    <header>
+      <h2>🐾 Available Pets</h2>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="pets.html">Pets</a>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="login.html">Login</a>
+        <a href="register.html">Register</a>
+        <a href="admin-login.html">Admin</a>
+      </nav>
+    </header>
+
+    <section class="section">
+      <h2>Featured Pets</h2>
+
+      <!-- FEATURED + DYNAMIC PETS USE SAME GRID -->
+      <div class="cards" id="petsContainer">
+
+        <!-- STATIC PETS -->
+        <div class="card">
+          <img src="dog1.jfif" />
+          <h3>Buddy</h3>
+          <p>Golden Retriever • 2 Years</p>
+         <a href="adopt.html"> <button class="btn">Adopt</button></a>
+        </div>
+
+        <div class="card">
+          <img src="cat.jpg" />
+          <h3>Luna</h3>
+          <p>Persian Cat • 1 Year</p>
+         <a href="adopt.html"> <button class="btn">Adopt</button></a>
+        </div>
+
+        <div class="card">
+          <img src="dog 2.jpg" />
+          <h3>Max</h3>
+          <p>Labrador • 3 Years</p>
+         <a href="adopt.html"> <button class="btn">Adopt</button></a>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ================= ADOPTION FORM ================= -->
+    <div id="adoptionForm" class="adoption-modal">
+      <div class="adoption-box">
+        <span class="close-btn" onclick="closeForm()">&times;</span>
+        <h2>Pet Adoption Form</h2>
+
+        <form>
+          <input type="text" id="petName" readonly />
+          <input type="text" placeholder="Your Full Name" required />
+          <input type="email" placeholder="Email Address" required />
+          <input type="tel" placeholder="Phone Number" required />
+          <textarea placeholder="Why do you want to adopt this pet?" required></textarea>
+          <button type="submit" class="btn">Submit Request</button>
+        </form>
+      </div>
+    </div>
+
+    <footer>© 2026 PetCare</footer>
+
+    <!-- ================= DYNAMIC PET SCRIPT ================= -->
+    <script>
+      let pets = JSON.parse(localStorage.getItem("pets")) || [];
+      let box = document.getElementById("petsContainer");
+
+      pets.forEach(p => {
+        box.innerHTML += `
+          <div class="card">
+            <img src="${p.img}">
+            <h3>${p.name}</h3>
+            <p>${p.type || "Lovely Pet"} • ${p.age || "1 Year"}</p>
+            <button class="btn" onclick="startAdoption('${p.name}')">
+              Adopt
+            </button>
+          </div>
+        `;
+      });
+    </script>
+<script>
+/* ===== INITIAL PET DATA (RUNS ONLY ONCE) ===== */
+if (!localStorage.getItem("pets")) {
+  const defaultPets = [
+    {
+      name: "Buddy",
+      img: "images/dog1.jfif"
+    },
+    {
+      name: "Luna",
+      img: "images/cat.jpg"
+    },
+    {
+      name: "Max",
+      img: "images/dog 2.jpg"
+    }
+  ];
+
+  localStorage.setItem("pets", JSON.stringify(defaultPets));
+}
+</script>
+
+  </body>
+</html>
